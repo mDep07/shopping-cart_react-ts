@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { FiShoppingCart, FiStar, FiUser } from 'react-icons/fi';
 
 const Navbar = styled.nav`
-  --color: 3, 140, 253;
+  --color: ${(props) =>
+    props.primaryColor ? props.primaryColor : '3, 140, 253'};
   background-color: rgba(var(--color), .2);
   padding: 5px;
   border-radius: 8px;
@@ -22,6 +23,7 @@ const List = styled.ul`
 const ListItem = styled.li`
   list-style-type: none;
   display: inline-block;
+  margin-left: ${(props) => (props.first ? 0 : '5px')};
 `;
 
 const ListItemButton = styled.a`
@@ -32,7 +34,6 @@ const ListItemButton = styled.a`
   padding: 8px;
   border-radius: 8px;
   cursor: pointer;
-  margin-left: ${(props) => (props.first ? 0 : '5px')};
   &:hover {
     background-color: rgb(var(--color), .3);
     color: white;
@@ -42,8 +43,8 @@ const ListItemButton = styled.a`
   }
 `;
 
-export default () => (
-  <Navbar>
+export default ({ color }) => (
+  <Navbar primaryColor={color?.primary}>
     <List>
       <ListItem first>
         <ListItemButton>

@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Hello from './Hello';
+import Navbar from './Navbar';
+import CardList from './CardList';
 import './style.css';
 
-interface AppProps { }
-interface AppState {
-  name: string;
-}
+const products = [
+  {
+    name: 'Tomate',
+    description: 'Tomate redondo color rojo',
+    price: 245.5,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Bright_red_tomato_and_cross_section02.jpg',
+  },
+  {
+    name: 'Peras',
+    description: 'Peras verdes para hacer postres zarpados.',
+    price: 245.5,
+    img: 'https://farmaciaribera.es/blog/wp-content/uploads/2020/01/Beneficios-de-comer-peras-1024x680.jpg',
+  },
+];
 
-class App extends Component<AppProps, AppState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'React'
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        
-      </div>
-    );
-  }
-}
+const App = () => {
+  const color = {
+    primary: '165, 3, 252',
+    secondary: '51, 7, 74',
+  };
+  return (
+    <div>
+      <Navbar color={color} />
+      <CardList color={color} items={products} />
+    </div>
+  );
+};
 
 render(<App />, document.getElementById('root'));
