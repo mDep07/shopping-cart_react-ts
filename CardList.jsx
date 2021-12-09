@@ -4,6 +4,8 @@ import Card from './Card';
 import { FiShoppingCart, FiStar, FiUser } from 'react-icons/fi';
 
 const CardList = styled.section`
+  max-width: 800px;
+  margin: 0 auto;
   margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
