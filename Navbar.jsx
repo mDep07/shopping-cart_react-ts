@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { FiShoppingCart, FiStar, FiUser } from 'react-icons/fi';
 
 const Navbar = styled.nav`
-  --color: ${(props) =>
-    props.primaryColor ? props.primaryColor : '3, 140, 253'};
+  --color: ${({ color }) => (color ? color : '3, 140, 253')};
   background-color: rgba(var(--color), .2);
   padding: 5px;
   border-radius: 8px;
@@ -44,7 +43,7 @@ const ListItemButton = styled.a`
 `;
 
 export default ({ color }) => (
-  <Navbar primaryColor={color?.primary}>
+  <Navbar color={color}>
     <List>
       <ListItem first>
         <ListItemButton>

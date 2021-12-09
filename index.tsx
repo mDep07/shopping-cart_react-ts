@@ -44,14 +44,10 @@ const products = [
 ];
 
 const App = () => {
-  const color = {
-    primary: '165, 3, 252',
-    secondary: '51, 7, 74',
-  };
   return (
     <div>
-      <Navbar color={color} />
-      <CardList color={color} items={products} />
+      <Navbar color="12, 84, 77" />
+      <CardList color="12, 84, 77" items={products} />
     </div>
   );
 };

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FiPlusCircle } from 'react-icons/fi';
+import { FiPlusCircle, FiStar } from 'react-icons/fi';
 
 const Card = styled.div`
-  --color: ${(props) =>
-    props.primaryColor ? props.primaryColor : '3, 140, 253'};
+  --color: ${({ color }) => (color ? color : '3, 140, 253')};
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -13,6 +13,12 @@ const Card = styled.div`
   box-shadow: 0 1px 2px #bdbdbd, 0 2px 4px #cccccc;
   &:hover {
     box-shadow: 0 2px 4px #bdbdbd, 0 4px 8px #cccccc, 0 4px 10px #d1d1d1;
+    & .add-to-fav {
+      transform: scale(1);
+      &:active {
+        transform: scale(.95);
+      }
+    }
   }
 `;
 const Image = styled.img`
@@ -66,17 +72,47 @@ const AddToCart = styled.button`
   }
 `;
 
-export default ({ color, name, price, description, img }) => (
-  <Card primaryColor={color.primary}>
-    <Image src={img} />
-    <Details>
-      <Title>{name}</Title>
-      <Price>${price.toFixed(2)}</Price>
-      <Description>{description}</Description>
-    </Details>
-    <AddToCart>
-      <FiPlusCircle />
-      Agregar
-    </AddToCart>
-  </Card>
-);
+const AddToFavs = styled.a`
+  position: absolute;
+  display: flex;
+  top: .5rem;
+  right: .5rem;
+  font-size: 1.25rem;
+  background-color: rgba(var(--color), .6);
+  color: white;
+  padding: 4px;
+  border-radius: 100px;
+  cursor: pointer;
+  transform: scale(0);
+  &.active {
+    background-color: rgb(var(--color));
+    transform: scale(1);
+  }
+`;
+
+export default ({ color, name, price, description, img }) => {
+  const [state, setState] = useState({ inFav: false, inCart: false });
+  const addToFav = () => setState({ ...state, inFav: !state.inFav });
+
+  return (
+    <Card color={color}>
+      <AddToFavs
+        title={state.inFav ? 'In favs' : 'Add to favs'}
+        onClick={addToFav}
+        className={`add-to-fav ${state.inFav ? 'active' : ''}`}
+      >
+        <FiStar />
+      </AddToFavs>
+      <Image src={img} />
+      <Details>
+        <Title>{name}</Title>
+        <Price>${price.toFixed(2)}</Price>
+        <Description>{description}</Description>
+      </Details>
+      <AddToCart>
+        <FiPlusCircle />
+        Agregar
+      </AddToCart>
+    </Card>
+  );
+};

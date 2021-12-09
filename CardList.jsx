@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Card from './Card';
-import { FiShoppingCart, FiStar, FiUser } from 'react-icons/fi';
+import { FiStar } from 'react-icons/fi';
 
 const CardList = styled.section`
   max-width: 800px;
