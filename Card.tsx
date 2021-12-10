@@ -115,12 +115,10 @@ const ViewCount = styled.span`
   font-weight: 900;
 `;
 
-export default ({ color, name, price, description, img }) => {
+export default ({ color, name, price, description, img, inFav, fav }) => {
   const [state, setState] = useState({
-    isFav: false,
     countInCart: 0,
   });
-  const addToFav = () => setState({ ...state, isFav: !state.isFav });
 
   const addToCart = ({ action = 'ADD' }: { action: 'ADD' | 'REMOVE' }) => {
     if (action === 'ADD')
@@ -146,9 +144,9 @@ export default ({ color, name, price, description, img }) => {
   return (
     <Card color={color}>
       <AddToFavs
-        title={state.isFav ? 'In favs' : 'Add to favs'}
-        onClick={addToFav}
-        className={`add-to-fav ${state.isFav ? 'active' : ''}`}
+        title={inFav ? 'In favs' : 'Add to favs'}
+        onClick={fav}
+        className={`add-to-fav ${inFav ? 'active' : ''}`}
       >
         <FiStar />
       </AddToFavs>

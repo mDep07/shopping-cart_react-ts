@@ -59,28 +59,32 @@ const Badge = styled.span`
   align-items: center;
 `;
 
-export default ({ color }) => (
-  <Navbar color={color}>
-    <List>
-      <ListItem first>
-        <ListItemButton>
-          <FiShoppingCart />
-          <Badge>1</Badge>
-        </ListItemButton>
-      </ListItem>
-      <ListItem>
-        <ListItemButton>
-          <FiStar />
-          <Badge>9+</Badge>
-        </ListItemButton>
-      </ListItem>
-    </List>
-    <List>
-      <ListItem first>
-        <ListItemButton>
-          <FiUser />
-        </ListItemButton>
-      </ListItem>
-    </List>
-  </Navbar>
-);
+export default ({ color, items }) => {
+  const countFavs = items.filter((p) => p.inFav).length;
+
+  return (
+    <Navbar color={color}>
+      <List>
+        <ListItem first>
+          <ListItemButton>
+            <FiShoppingCart />
+            <Badge>1</Badge>
+          </ListItemButton>
+        </ListItem>
+        <ListItem>
+          <ListItemButton>
+            <FiStar />
+            {countFavs > 0 && <Badge>{countFavs > 9 ? '9+' : countFavs}</Badge>}
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <List>
+        <ListItem first>
+          <ListItemButton>
+            <FiUser />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Navbar>
+  );
+};
