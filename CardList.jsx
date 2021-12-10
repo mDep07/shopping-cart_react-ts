@@ -18,16 +18,10 @@ const CardList = styled.section`
   }
 `;
 
-export default ({ color, items, addToFav, addToCart }) => (
+export default ({ items, addToFav, addToCart }) => (
   <CardList>
     {items.map((item, i) => (
-      <Card
-        fav={() => addToFav(item.id)}
-        cart={addToCart}
-        key={i}
-        color={color}
-        {...item}
-      />
+      <Card fav={() => addToFav(item.id)} cart={addToCart} key={i} {...item} />
     ))}
   </CardList>
 );

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FiPlusCircle, FiMinusCircle, FiStar } from 'react-icons/fi';
 
 const Card = styled.div`
-  --color: ${({ color }) => (color ? color : '3, 140, 253')};
+  --color: ${({ theme }) => (theme.main ? theme.main : '3, 140, 253')};
   position: relative;
   display: flex;
   flex-direction: column;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
 import { render } from 'react-dom';
 import Navbar from './Navbar';
 import CardList from './CardList';
@@ -85,21 +86,18 @@ const App = () => {
     ]);
   };
 
+  const theme = {
+    main: '235, 79, 52',
+    borderRadius: 8,
+  };
+
   return (
-    <div>
-      <Navbar
-        addToFav={addToFav}
-        addToCart={addToCart}
-        items={products}
-        color={color}
-      />
-      <CardList
-        addToFav={addToFav}
-        addToCart={addToCart}
-        items={products}
-        color={color}
-      />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div>
+        <Navbar addToFav={addToFav} addToCart={addToCart} items={products} />
+        <CardList addToFav={addToFav} addToCart={addToCart} items={products} />
+      </div>
+    </ThemeProvider>
   );
 };
 

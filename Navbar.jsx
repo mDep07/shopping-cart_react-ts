@@ -11,7 +11,7 @@ import {
 } from 'react-icons/fi';
 
 const Navbar = styled.nav`
-  --color: ${({ color }) => (color ? color : '3, 140, 253')};
+  --color: ${({ theme }) => (theme.main ? theme.main : '3, 140, 253')};
   background-color: rgba(var(--color), .2);
   padding: 5px;
   margin: 5px auto;
@@ -173,7 +173,7 @@ const DropDownMenuFinishBuy = styled.button`
   }
 `;
 
-export default ({ color, items, addToFav, addToCart }) => {
+export default ({ items, addToFav, addToCart }) => {
   const productsInFav = items.filter((p) => p.inFav);
   const countFavs = productsInFav.length;
 
@@ -190,7 +190,7 @@ export default ({ color, items, addToFav, addToCart }) => {
   };
 
   return (
-    <Navbar color={color}>
+    <Navbar>
       <List>
         <ListItem first>
           <ListItemButton onClick={() => showDropdown('cart')}>
