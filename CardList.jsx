@@ -13,10 +13,16 @@ const CardList = styled.section`
   grid-auto-rows: minmax(100px, auto);
 `;
 
-export default ({ color, items, addToFav }) => (
+export default ({ color, items, addToFav, addToCart }) => (
   <CardList>
     {items.map((item, i) => (
-      <Card fav={() => addToFav(item.id)} key={i} color={color} {...item} />
+      <Card
+        fav={() => addToFav(item.id)}
+        cart={addToCart}
+        key={i}
+        color={color}
+        {...item}
+      />
     ))}
   </CardList>
 );

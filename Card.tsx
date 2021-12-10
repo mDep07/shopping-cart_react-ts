@@ -116,32 +116,18 @@ const ViewCount = styled.span`
   font-weight: 900;
 `;
 
-export default ({ color, name, price, description, img, inFav, fav }) => {
-  const [state, setState] = useState({
-    countInCart: 0,
-  });
-
-  const addToCart = ({ action = 'ADD' }: { action: 'ADD' | 'REMOVE' }) => {
-    if (action === 'ADD')
-      setState({ ...state, countInCart: state.countInCart + 1 });
-    if (action === 'REMOVE')
-      setState({ ...state, countInCart: state.countInCart - 1 });
-  };
-
-  const AddMoreToCart = ({ count, changeCount }) => {
-    return (
-      <div style={{ display: 'flex', gap: '5px' }}>
-        <AddToCart icon onClick={() => changeCount({ action: 'REMOVE' })}>
-          <FiMinusCircle />
-        </AddToCart>
-        <ViewCount>{count}</ViewCount>
-        <AddToCart icon onClick={() => changeCount({ action: 'ADD' })}>
-          <FiPlusCircle />
-        </AddToCart>
-      </div>
-    );
-  };
-
+export default ({
+  color,
+  id,
+  name,
+  price,
+  description,
+  img,
+  inFav,
+  countInCart,
+  fav,
+  cart,
+}) => {
   return (
     <Card color={color}>
       <AddToFavs
@@ -156,20 +142,28 @@ export default ({ color, name, price, description, img, inFav, fav }) => {
         <Title>{name}</Title>
         <Price>
           ${price.toFixed(2)}
-          {state.countInCart > 1 && (
-            <small>(${(state.countInCart * price).toFixed(2)})</small>
+          {countInCart > 1 && (
+            <small>(${(countInCart * price).toFixed(2)})</small>
           )}
         </Price>
         <Description>{description}</Description>
       </Details>
       <Actions>
-        {state.countInCart === 0 ? (
-          <AddToCart width100 onClick={addToCart}>
+        {countInCart === 0 ? (
+          <AddToCart width100 onClick={() => cart(id)}>
             <FiPlusCircle />
             Agregar
           </AddToCart>
         ) : (
-          <AddMoreToCart count={state.countInCart} changeCount={addToCart} />
+          <div style={{ display: 'flex', gap: '5px' }}>
+            <AddToCart icon onClick={() => cart(id, -1)}>
+              <FiMinusCircle />
+            </AddToCart>
+            <ViewCount>{countInCart}</ViewCount>
+            <AddToCart icon onClick={() => cart(id)}>
+              <FiPlusCircle />
+            </AddToCart>
+          </div>
         )}
       </Actions>
     </Card>

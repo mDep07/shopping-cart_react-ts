@@ -61,6 +61,9 @@ const Badge = styled.span`
 
 export default ({ color, items }) => {
   const countFavs = items.filter((p) => p.inFav).length;
+  const countCarts = items
+    .filter((p) => p.countInCart > 0)
+    .reduce((acc, c) => acc + c.countInCart, 0);
 
   return (
     <Navbar color={color}>
@@ -68,7 +71,9 @@ export default ({ color, items }) => {
         <ListItem first>
           <ListItemButton>
             <FiShoppingCart />
-            <Badge>1</Badge>
+            {countCarts > 0 && (
+              <Badge>{countCarts > 9 ? '9+' : countCarts}</Badge>
+            )}
           </ListItemButton>
         </ListItem>
         <ListItem>

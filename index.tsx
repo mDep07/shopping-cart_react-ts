@@ -74,10 +74,25 @@ const App = () => {
     ]);
   };
 
+  const addToCart = (id: number, count: number = 1) => {
+    const productIndex = products.findIndex((p) => p.id === id);
+    const product = products.find((p) => p.id === id);
+    setProducts([
+      ...products.slice(0, productIndex),
+      { ...product, countInCart: product.countInCart + count },
+      ...products.slice(productIndex + 1),
+    ]);
+  };
+
   return (
     <div>
       <Navbar items={products} color={color} />
-      <CardList addToFav={addToFav} items={products} color={color} />
+      <CardList
+        addToFav={addToFav}
+        addToCart={addToCart}
+        items={products}
+        color={color}
+      />
     </div>
   );
 };
