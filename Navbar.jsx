@@ -7,6 +7,7 @@ import {
   FiMinusCircle,
   FiPlusCircle,
   FiTrash,
+  FiDollarSign,
 } from 'react-icons/fi';
 
 const Navbar = styled.nav`
@@ -129,6 +130,43 @@ const DropDownMenuItemButton = styled.button`
   }
 `;
 
+const DropDownMenuTotalSum = styled.div`
+  background-color: rgba(var(--color), .2);
+  color: rgb(var(--color));
+  border-radius: 4px;
+  padding: 4px;
+  margin-top: 8px;
+`;
+
+const DropDownMenuFinishBuy = styled.button`
+  display: block;
+  margin-top: 8px;
+  width: 100%;
+  min-width: 3rem;
+  border-radius: 8px;
+  border: none;
+  padding: 5px;
+  font-size: .8rem;
+  font-weight: 800;
+  background-color: rgb(var(--color));
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    background-color: rgba(var(--color), .3);
+    color: rgb(var(--color));
+  }
+  &:active {
+    transform: scale(.97)
+  }
+  & svg {
+    font-size: 1rem;
+    ${({ icon }) => (icon ? '' : 'margin-right:5px;')}
+  }
+`;
+
 export default ({ color, items, addToFav, addToCart }) => {
   const productsInFav = items.filter((p) => p.inFav);
   const countFavs = productsInFav.length;
@@ -138,6 +176,9 @@ export default ({ color, items, addToFav, addToCart }) => {
 
   const [dropdownMenu, setDropdownMenu] = useState('');
   const showDropdown = (show) => {
+    if (show === 'cart' && countCarts === 0) show = '';
+    if (show === 'fav' && countFavs === 0) show = '';
+
     if (dropdownMenu === show) setDropdownMenu('');
     else setDropdownMenu(show);
   };
@@ -180,6 +221,16 @@ export default ({ color, items, addToFav, addToCart }) => {
                 </DropDownMenuItem>
               ))}
             </List>
+            <DropDownMenuTotalSum>
+              <small>Total:</small>{' '}
+              <strong>
+                $
+                {productsInCart
+                  .reduce((acc, c) => acc + c.countInCart * c.price, 0)
+                  .toFixed(2)}
+              </strong>
+            </DropDownMenuTotalSum>
+            <DropDownMenuFinishBuy>Finalizar Pedido</DropDownMenuFinishBuy>
           </DropDownMenu>
         </ListItem>
         <ListItem>
