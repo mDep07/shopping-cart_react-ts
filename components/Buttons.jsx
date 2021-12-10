@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export const Button = styled.section`
+export const Button = styled.button`
   --color: ${({ theme }) => theme.main};
   ${({ width100 }) => (width100 ? 'width:100%;' : '')}
-  min-width: 3rem;
-  border-radius: 8px;
+  min-width: ${({ icon }) => (icon ? '2rem' : '3rem')};
+  border-radius: ${({ theme }) => theme.borderRadius};
   border: none;
-  padding: 5px;
+  padding: 6px;
   font-size: .8rem;
   font-weight: 800;
   background-color: rgb(var(--color));
@@ -30,4 +30,10 @@ export const Button = styled.section`
 
 export const SmallButton = styled(Button)`
   font-size: .6rem;
+  font-weight: 600;
+  padding: 4px;
+  border-radius: ${({ theme }) => `calc(${theme.borderRadius} / 1.25)`};
+  & svg {
+    font-size: 1.5em;
+  }
 `;

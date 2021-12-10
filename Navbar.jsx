@@ -11,6 +11,8 @@ import {
   FiSearch,
 } from 'react-icons/fi';
 
+import { SmallButton } from './components/Buttons';
+
 const Navbar = styled.nav`
   --color: ${({ theme }) => (theme.main ? theme.main : '3, 140, 253')};
   background-color: rgba(var(--color), .2);
@@ -215,14 +217,16 @@ export default ({ items, addToFav, addToCart }) => {
                       <strong>${(p.countInCart * p.price).toFixed(2)}</strong>
                     </p>
                     <div>
-                      <DropDownMenuItemButton
-                        onClick={() => addToCart(p.id, -1)}
-                      >
+                      <SmallButton icon onClick={() => addToCart(p.id, -1)}>
                         <FiMinusCircle />
-                      </DropDownMenuItemButton>
-                      <DropDownMenuItemButton onClick={() => addToCart(p.id)}>
+                      </SmallButton>
+                      <SmallButton
+                        icon
+                        onClick={() => addToCart(p.id)}
+                        style={{ marginLeft: 2 }}
+                      >
                         <FiPlusCircle />
-                      </DropDownMenuItemButton>
+                      </SmallButton>
                     </div>
                   </div>
                 </DropDownMenuItem>
@@ -252,9 +256,9 @@ export default ({ items, addToFav, addToCart }) => {
                   <img src={p.img} />
                   <div>
                     <p>{p.name}</p>
-                    <DropDownMenuItemButton onClick={() => addToFav(p.id)}>
+                    <SmallButton icon onClick={() => addToFav(p.id)}>
                       <FiTrash />
-                    </DropDownMenuItemButton>
+                    </SmallButton>
                   </div>
                 </DropDownMenuItem>
               ))}

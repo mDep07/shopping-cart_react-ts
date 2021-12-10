@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FiPlusCircle, FiMinusCircle, FiStar } from 'react-icons/fi';
 
-import { Button } from './components/Button';
+import { Button, SmallButton } from './components/Buttons';
 
 const Card = styled.div`
   --color: ${({ theme }) => (theme.main ? theme.main : '3, 140, 253')};
