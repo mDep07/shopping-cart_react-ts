@@ -8,6 +8,7 @@ import {
   FiPlusCircle,
   FiTrash,
   FiDollarSign,
+  FiSearch,
 } from 'react-icons/fi';
 
 const Navbar = styled.nav`
@@ -259,6 +260,11 @@ export default ({ items, addToFav, addToCart }) => {
               ))}
             </List>
           </DropDownMenu>
+        </ListItem>
+        <ListItem>
+          <ListItemButton onClick={() => showDropdown('fav')}>
+            <FiSearch />
+          </ListItemButton>
         </ListItem>
       </List>
       <List>

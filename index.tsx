@@ -88,7 +88,7 @@ const App = () => {
 
   const theme = {
     main: '235, 79, 52',
-    borderRadius: 8,
+    borderRadius: '8px',
   };
 
   return (

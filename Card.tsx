@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FiPlusCircle, FiMinusCircle, FiStar } from 'react-icons/fi';
 
+import { Button } from './components/Button';
+
 const Card = styled.div`
   --color: ${({ theme }) => (theme.main ? theme.main : '3, 140, 253')};
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius};
   overflow: hidden;
   box-shadow: 0 1px 2px #bdbdbd, 0 2px 4px #cccccc;
   &:hover {
@@ -155,19 +157,19 @@ export default ({
       </Details>
       <Actions>
         {countInCart === 0 ? (
-          <AddToCart width100 onClick={() => cart(id)}>
+          <Button width100 onClick={() => cart(id)}>
             <FiPlusCircle />
             Agregar
-          </AddToCart>
+          </Button>
         ) : (
           <div style={{ display: 'flex', gap: '5px' }}>
-            <AddToCart icon onClick={() => cart(id, -1)}>
+            <Button icon onClick={() => cart(id, -1)}>
               <FiMinusCircle />
-            </AddToCart>
+            </Button>
             <ViewCount>{countInCart}</ViewCount>
-            <AddToCart icon onClick={() => cart(id)}>
+            <Button icon onClick={() => cart(id)}>
               <FiPlusCircle />
-            </AddToCart>
+            </Button>
           </div>
         )}
       </Actions>
