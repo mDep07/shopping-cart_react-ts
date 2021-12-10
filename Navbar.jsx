@@ -26,6 +26,7 @@ const ListItem = styled.li`
 `;
 
 const ListItemButton = styled.a`
+  position: relative;
   font-size: 1.5rem;
   background-color: transparent;
   color: rgb(var(--color));
@@ -42,17 +43,35 @@ const ListItemButton = styled.a`
   }
 `;
 
+const Badge = styled.span`
+  position: absolute;
+  bottom: -7px;
+  right: -7px;
+  font-size: .7rem;
+  background-color: rgb(var(--color));
+  color: white;
+  border-radius: 100px;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export default ({ color }) => (
   <Navbar color={color}>
     <List>
       <ListItem first>
         <ListItemButton>
           <FiShoppingCart />
+          <Badge>1</Badge>
         </ListItemButton>
       </ListItem>
       <ListItem>
         <ListItemButton>
           <FiStar />
+          <Badge>9+</Badge>
         </ListItemButton>
       </ListItem>
     </List>
