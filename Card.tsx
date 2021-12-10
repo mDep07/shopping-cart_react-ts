@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FiPlusCircle, FiStar } from 'react-icons/fi';
+import { FiPlusCircle, FiMinusCircle, FiStar } from 'react-icons/fi';
 
 const Card = styled.div`
   --color: ${({ color }) => (color ? color : '3, 140, 253')};
@@ -38,7 +38,13 @@ const Title = styled.h1`
 `;
 const Price = styled.p`
   font-size: 2rem;
-  font-weight: 400
+  font-weight: 400;
+  white-space: wrap;
+  & small {
+    font-size: .5em;
+    font-weight: 700;
+    color: rgba(var(--color), .8);
+  }
 `;
 const Description = styled.p`
   white-space: nowrap;
@@ -48,8 +54,13 @@ const Description = styled.p`
   color: #808080;
 `;
 
+const Actions = styled.div`
+  padding: 5px;
+`;
+
 const AddToCart = styled.button`
-  margin: 5px;
+  ${({ width100 }) => (width100 ? 'display: block;width: 100%;' : '')}
+  min-width: 3rem;
   border-radius: 8px;
   border: none;
   padding: 5px;
@@ -58,6 +69,9 @@ const AddToCart = styled.button`
   background-color: rgb(var(--color));
   color: white;
   cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     background-color: rgba(var(--color), .3);
     color: rgb(var(--color));
@@ -67,8 +81,7 @@ const AddToCart = styled.button`
   }
   & svg {
     font-size: 1rem;
-    vertical-align: bottom;
-    margin-right: 5px
+    ${({ icon }) => (icon ? '' : 'margin-right:5px;')}
   }
 `;
 
@@ -90,29 +103,76 @@ const AddToFavs = styled.a`
   }
 `;
 
+const ViewCount = styled.span`
+  background-color: rgba(var(--color), .2);
+  flex: 6;
+  font-size: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(var(--color));
+  font-weight: 900;
+`;
+
 export default ({ color, name, price, description, img }) => {
-  const [state, setState] = useState({ inFav: false, inCart: false });
-  const addToFav = () => setState({ ...state, inFav: !state.inFav });
+  const [state, setState] = useState({
+    isFav: false,
+    countInCart: 0,
+  });
+  const addToFav = () => setState({ ...state, isFav: !state.isFav });
+
+  const addToCart = ({ action = 'ADD' }: { action: 'ADD' | 'REMOVE' }) => {
+    if (action === 'ADD')
+      setState({ ...state, countInCart: state.countInCart + 1 });
+    if (action === 'REMOVE')
+      setState({ ...state, countInCart: state.countInCart - 1 });
+  };
+
+  const AddMoreToCart = ({ count, changeCount }) => {
+    return (
+      <div style={{ display: 'flex', gap: '5px' }}>
+        <AddToCart icon onClick={() => changeCount({ action: 'REMOVE' })}>
+          <FiMinusCircle />
+        </AddToCart>
+        <ViewCount>{count}</ViewCount>
+        <AddToCart icon onClick={() => changeCount({ action: 'ADD' })}>
+          <FiPlusCircle />
+        </AddToCart>
+      </div>
+    );
+  };
 
   return (
     <Card color={color}>
       <AddToFavs
-        title={state.inFav ? 'In favs' : 'Add to favs'}
+        title={state.isFav ? 'In favs' : 'Add to favs'}
         onClick={addToFav}
-        className={`add-to-fav ${state.inFav ? 'active' : ''}`}
+        className={`add-to-fav ${state.isFav ? 'active' : ''}`}
       >
         <FiStar />
       </AddToFavs>
       <Image src={img} />
       <Details>
         <Title>{name}</Title>
-        <Price>${price.toFixed(2)}</Price>
+        <Price>
+          ${price.toFixed(2)}
+          {state.countInCart > 1 && (
+            <small>(${(state.countInCart * price).toFixed(2)})</small>
+          )}
+        </Price>
         <Description>{description}</Description>
       </Details>
-      <AddToCart>
-        <FiPlusCircle />
-        Agregar
-      </AddToCart>
+      <Actions>
+        {state.countInCart === 0 ? (
+          <AddToCart width100 onClick={addToCart}>
+            <FiPlusCircle />
+            Agregar
+          </AddToCart>
+        ) : (
+          <AddMoreToCart count={state.countInCart} changeCount={addToCart} />
+        )}
+      </Actions>
     </Card>
   );
 };
