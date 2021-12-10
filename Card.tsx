@@ -44,6 +44,7 @@ const Price = styled.p`
     font-size: .5em;
     font-weight: 700;
     color: rgba(var(--color), .8);
+    filter: brightness(.9)
   }
 `;
 const Description = styled.p`

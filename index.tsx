@@ -62,6 +62,7 @@ const listProducts = [
 ];
 
 const App = () => {
+  const color = '245, 144, 66';
   const [products, setProducts] = useState(listProducts);
   const addToFav = (id: number) => {
     const productIndex = products.findIndex((p) => p.id === id);
@@ -75,8 +76,8 @@ const App = () => {
 
   return (
     <div>
-      <Navbar items={products} color="12, 84, 77" />
-      <CardList addToFav={addToFav} items={products} color="12, 84, 77" />
+      <Navbar items={products} color={color} />
+      <CardList addToFav={addToFav} items={products} color={color} />
     </div>
   );
 };
