@@ -3,3 +3,7 @@
 body {
   font-family: 'Cabin', sans-serif;
 }
+
+img {
+  object-fit: cover;
+}

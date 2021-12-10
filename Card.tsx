@@ -23,6 +23,7 @@ const Card = styled.div`
 `;
 const Image = styled.img`
     width: 100%;
+    max-height: 150px;
     flex: 4
 `;
 const Details = styled.div`
@@ -45,6 +46,10 @@ const Price = styled.p`
     font-weight: 700;
     color: rgba(var(--color), .8);
     filter: brightness(.9)
+  }
+
+  @media(max-width: 550px) {
+    font-size: 1.25rem;
   }
 `;
 const Description = styled.p`

@@ -11,6 +11,11 @@ const CardList = styled.section`
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
   grid-auto-rows: minmax(100px, auto);
+  padding: 0 1rem;
+
+  @media(max-width: 550px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export default ({ color, items, addToFav, addToCart }) => (

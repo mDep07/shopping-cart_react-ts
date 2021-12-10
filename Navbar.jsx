@@ -14,9 +14,15 @@ const Navbar = styled.nav`
   --color: ${({ color }) => (color ? color : '3, 140, 253')};
   background-color: rgba(var(--color), .2);
   padding: 5px;
+  margin: 5px auto;
+  max-width: 1200px;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
+  
+  @media(max-width: 1200px) {
+    margin: 5px;
+  }
 `;
 
 const List = styled.ul`
