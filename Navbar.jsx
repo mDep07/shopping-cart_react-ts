@@ -14,7 +14,7 @@ import {
 import { SmallButton } from './components/Buttons';
 
 const Navbar = styled.nav`
-  --color: ${({ theme }) => (theme.main ? theme.main : '3, 140, 253')};
+  --color: ${({ theme }) => theme.main};
   background-color: rgba(var(--color), .2);
   padding: 5px;
   margin: 5px auto;
@@ -102,7 +102,7 @@ const DropDownMenuItem = styled.li`
   display: flex;
   align-items: start;
   gap: 5px;
-  padding: 5px 2px;
+  padding: 5px;
   border-radius: 4px;
   & > img {
     width: 65px;

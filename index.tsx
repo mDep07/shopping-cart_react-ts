@@ -63,7 +63,6 @@ const listProducts = [
 ];
 
 const App = () => {
-  const color = '235, 79, 52';
   const [products, setProducts] = useState(listProducts);
 
   const addToFav = (id: number) => {
@@ -88,6 +87,7 @@ const App = () => {
 
   const theme = {
     main: '235, 79, 52',
+    secondary: '',
     borderRadius: '8px',
   };
 
