@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import {
   FiShoppingCart,
@@ -53,7 +53,7 @@ const ListItemButton = styled.a`
   padding: 8px;
   border-radius: 8px;
   cursor: pointer;
-  &:hover {
+  &:hover, &.active {
     background-color: rgb(var(--color), .3);
     color: white;
   }
@@ -176,6 +176,21 @@ const DropDownMenuFinishBuy = styled.button`
   }
 `;
 
+const Search = styled.input`
+  border: none; 
+  background: transparent;
+  padding: 0;
+  margin-left: 1rem;
+  font-size: 1rem;
+  color: rgb(var(--color));
+  border-bottom: 2px solid;
+  font-weight: 600;
+
+  &:focus, &:active {
+    outline: none;
+  }
+`;
+
 export default ({ items, addToFav, addToCart }) => {
   const productsInFav = items.filter((p) => p.inFav);
   const countFavs = productsInFav.length;
@@ -193,6 +208,13 @@ export default ({ items, addToFav, addToCart }) => {
     else setDropdownMenu(show);
   };
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [search, setSearch] = useState({ show: false, text: '' });
+  const toggleSearch = () => {
+    setSearch({ ...search, show: !search.show });
+    setTimeout(() => (!search.show ? inputRef.current?.focus() : {}), 300);
+  };
+
   return (
     <Navbar>
       <List>
@@ -203,7 +225,10 @@ export default ({ items, addToFav, addToCart }) => {
               <Badge>{countCarts > 9 ? '9+' : countCarts}</Badge>
             )}
           </ListItemButton>
-          <DropDownMenu open={dropdownMenu === 'cart' && countCarts > 0}>
+          <DropDownMenu
+            open={dropdownMenu === 'cart' && countCarts > 0}
+            className={dropdownMenu === 'cart' ? 'active' : ''}
+          >
             <List dropdown>
               {productsInCart.map((p) => (
                 <DropDownMenuItem key={p.id}>
@@ -246,7 +271,10 @@ export default ({ items, addToFav, addToCart }) => {
           </DropDownMenu>
         </ListItem>
         <ListItem>
-          <ListItemButton onClick={() => showDropdown('fav')}>
+          <ListItemButton
+            onClick={() => showDropdown('fav')}
+            className={dropdownMenu === 'fav' ? 'active' : ''}
+          >
             <FiStar />
             {countFavs > 0 && <Badge>{countFavs > 9 ? '9+' : countFavs}</Badge>}
           </ListItemButton>
@@ -267,8 +295,9 @@ export default ({ items, addToFav, addToCart }) => {
           </DropDownMenu>
         </ListItem>
         <ListItem>
-          <ListItemButton onClick={() => showDropdown('fav')}>
-            <FiSearch />
+          <ListItemButton className={search.show ? 'active' : ''}>
+            <FiSearch onClick={toggleSearch} />
+            {search.show && <Search ref={inputRef} type="text" />}
           </ListItemButton>
         </ListItem>
       </List>
