@@ -183,8 +183,9 @@ export default ({ items, addToFav, addToCart }) => {
   const productsInCart = items.filter((p) => p.countInCart > 0);
   const countCarts = productsInCart.reduce((acc, c) => acc + c.countInCart, 0);
 
-  const [dropdownMenu, setDropdownMenu] = useState('');
-  const showDropdown = (show) => {
+  type TDropDownMenu = '' | 'cart' | 'fav';
+  const [dropdownMenu, setDropdownMenu] = useState<TDropDownMenu>('');
+  const showDropdown = (show: TDropDownMenu) => {
     if (show === 'cart' && countCarts === 0) show = '';
     if (show === 'fav' && countFavs === 0) show = '';
 
