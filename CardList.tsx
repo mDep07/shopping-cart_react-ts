@@ -18,10 +18,49 @@ const CardList = styled.section`
   }
 `;
 
-export default ({ items, addToFav, addToCart }) => (
-  <CardList>
-    {items.map((item, i) => (
-      <Card fav={() => addToFav(item.id)} cart={addToCart} key={i} {...item} />
-    ))}
-  </CardList>
-);
+type Params = {
+  items: {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    img: string;
+    inFav: boolean;
+    countInCart: number;
+  }[];
+  addToFav: (id: number) => void;
+  addToCart: (id: number, count?: number) => void;
+  filteredItems: number[];
+};
+export default ({ items, addToFav, addToCart, filteredItems }: Params) => {
+  console.log({ filteredItems });
+  if (filteredItems.length === 0) {
+    return (
+      <CardList>
+        {items.map((item, i) => (
+          <Card
+            fav={() => addToFav(item.id)}
+            cart={addToCart}
+            key={i}
+            {...item}
+          />
+        ))}
+      </CardList>
+    );
+  }
+
+  return (
+    <CardList>
+      {items
+        .filter((p) => filteredItems.indexOf(p.id) !== -1)
+        .map((item, i) => (
+          <Card
+            fav={() => addToFav(item.id)}
+            cart={addToCart}
+            key={i}
+            {...item}
+          />
+        ))}
+    </CardList>
+  );
+};

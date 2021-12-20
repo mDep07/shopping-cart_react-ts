@@ -85,6 +85,15 @@ const App = () => {
     ]);
   };
 
+  const [productsFiltered, setProductsFiltered] = useState<number[]>([]);
+  const handleProductsFiltered = (text: string) => {
+    const filtered = products
+      .filter((p) => p.name.toLowerCase().includes(text.toLowerCase()))
+      .map((p) => p.id);
+
+    if (filtered) setProductsFiltered([...filtered]);
+  };
+
   const theme = {
     main: '235, 79, 52',
     secondary: '',
@@ -94,8 +103,18 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Navbar addToFav={addToFav} addToCart={addToCart} items={products} />
-        <CardList addToFav={addToFav} addToCart={addToCart} items={products} />
+        <Navbar
+          addToFav={addToFav}
+          addToCart={addToCart}
+          items={products}
+          filtered={handleProductsFiltered}
+        />
+        <CardList
+          addToFav={addToFav}
+          addToCart={addToCart}
+          items={products}
+          filteredItems={productsFiltered}
+        />
       </div>
     </ThemeProvider>
   );

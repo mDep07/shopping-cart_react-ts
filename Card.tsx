@@ -124,7 +124,6 @@ const ViewCount = styled.span`
 `;
 
 export default ({
-  color,
   id,
   name,
   price,
@@ -136,7 +135,7 @@ export default ({
   cart,
 }) => {
   return (
-    <Card color={color}>
+    <Card>
       <AddToFavs
         title={inFav ? 'In favs' : 'Add to favs'}
         onClick={fav}

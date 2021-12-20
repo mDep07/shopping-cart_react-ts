@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, SyntheticEvent, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import {
   FiShoppingCart,
@@ -191,7 +191,7 @@ const Search = styled.input`
   }
 `;
 
-export default ({ items, addToFav, addToCart }) => {
+export default ({ items, addToFav, addToCart, filtered }) => {
   const productsInFav = items.filter((p) => p.inFav);
   const countFavs = productsInFav.length;
 
@@ -213,6 +213,12 @@ export default ({ items, addToFav, addToCart }) => {
   const toggleSearch = () => {
     setSearch({ ...search, show: !search.show });
     setTimeout(() => (!search.show ? inputRef.current?.focus() : {}), 300);
+  };
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    console.log({ value });
+    filtered(value);
   };
 
   return (
@@ -297,7 +303,13 @@ export default ({ items, addToFav, addToCart }) => {
         <ListItem>
           <ListItemButton className={search.show ? 'active' : ''}>
             <FiSearch onClick={toggleSearch} />
-            {search.show && <Search ref={inputRef} type="text" />}
+            {search.show && (
+              <Search
+                ref={inputRef}
+                onChange={handleSearchChange}
+                type="text"
+              />
+            )}
           </ListItemButton>
         </ListItem>
       </List>
